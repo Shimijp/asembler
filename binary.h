@@ -10,10 +10,10 @@
 #include "globals.h"
 
 char * dec_to_bin(int num , int bit_size);
-bool  two_com(char * bin);
+void  two_com(char * bin);
 int bin_to_dec(char *bin);
 bool  add_one(char * bin);
-void revrse(char * bin);
+void reverse(char * bin);
 
 
 

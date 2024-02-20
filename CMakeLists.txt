@@ -7,4 +7,7 @@ add_executable(asembler2
         main.c
         globals.h
         binary.h
-        binary.c)
+        binary.c
+        memory.h
+        memory.c
+        memory.c)

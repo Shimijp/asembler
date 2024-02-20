@@ -7,10 +7,10 @@
 int main(int argc , char ** argv)
 {
 
-    bool flag;
-    char * res=dec_to_bin(  -1, 14);
+    int num1;
+    char * res=dec_to_bin(  -2, 14);
     printf("in binary: %s\n",res);
-    flag=two_com(res);
+    two_com(res);
     printf("in binary: %s\n",res);
 
     return 0;
