@@ -10,13 +10,23 @@
 #define INVALID (-1)
 #define CMD_SIZE 3
 #define WORD_SIZE 14
+#define MAX_WORDS 5
+
+typedef enum
+{
+    A,R,E
+}ARE;
+
+typedef struct
+{
+    ARE num;
+    char type;
+}type;
 
 typedef enum
 {
         false,
         true,
-
-
 }bool;
 typedef enum
 {
@@ -25,8 +35,9 @@ typedef enum
 }registers;
 typedef struct
 {
-    int ARE :2;
-    int word_s:WORD_SIZE;
+
+    long long word_s:WORD_SIZE;
+
 
 }word;
 typedef enum
@@ -61,7 +72,7 @@ typedef enum
 typedef struct
 {
      optcode d_optcode;
-    char cmd_name[CMD_SIZE];
+     char cmd_name[CMD_SIZE];
 }command;
 
 
