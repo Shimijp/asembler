@@ -35,6 +35,7 @@ char * dec_to_bin(int num , int bit_size)
     if(check)
     {
         two_com(temp);
+        add_one(temp);
     }
     return temp;
 
@@ -56,15 +57,15 @@ bool  two_com(char * bin)
 
 
     }
-    if(c==ONE_CHAR)
+    /*if(c==ONE_CHAR)
     {
         success=add_one(bin);
     }
     else
     {
         success=true;
-    }
-    return success;
+    }*/
+    return true;
 
 
 }
@@ -78,13 +79,15 @@ bool  add_one(char * bin)
     len= strlen(bin);
     add=ONE_CHAR;
 
-    for ( i=len-1;i>=0 &&(!success );i++)
+    for ( i=len-1;i>=0 && (!success );i++)
     {
         if(bin[i]==ZERO_CHAR)
         {
-            revrse(&bin[i]);
+
             success = true;
         }
+        revrse(&bin[i]);
+
 
     }
     return success;
