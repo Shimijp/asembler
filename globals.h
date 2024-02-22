@@ -4,6 +4,10 @@
 
 #ifndef ASEMBLER2_GLOBALS_H
 #define ASEMBLER2_GLOBALS_H
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include "binary.h"
 #define REG_NAME_SIZE 2
 #define  MEMORY_SIZE 4096
 #define MAX_BIT 8192

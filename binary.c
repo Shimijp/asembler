@@ -3,12 +3,9 @@
 //
 
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include "binary.h"
+
 #include "memory.h"
-/* converts a decimal number to a binery with 13 bits and the 14-th is to check wether its negetive or positive*/
+/* converts a decimal number to a binary with 13 bits and the 14-th is to check whether its negative or positive*/
 char * dec_to_bin(int num , int bit_size)
 {
     char * temp;

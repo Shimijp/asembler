@@ -7,6 +7,7 @@
 #define BASE 2
 #define ZERO_CHAR '0'
 #define ONE_CHAR '1'
+
 #include "globals.h"
 
 char * dec_to_bin(int num , int bit_size);
