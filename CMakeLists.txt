@@ -10,4 +10,7 @@ add_executable(asembler2
         binary.c
         memory.h
         memory.c
-        memory.c)
+        memory.c
+        files.h
+        files.h
+        files.c)

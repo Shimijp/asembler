@@ -5,6 +5,7 @@
 
 
 #include "memory.h"
+#include "binary.h"
 /* converts a decimal number to a binary with 13 bits and the 14-th is to check whether its negative or positive*/
 char * dec_to_bin(int num , int bit_size)
 {
@@ -27,21 +28,21 @@ char * dec_to_bin(int num , int bit_size)
     {
 
     /* a simple base change algo*/
-        temp[i]=(char)(num%BASE+ZERO_CHAR);
-        num/=BASE;
+        temp[i]=(char)(num%BASE_2+ZERO_CHAR);
+        num/=BASE_2;
         i--;
     }
     temp[bit_size]='\0';
     if(check)
     {
 
-        two_com(temp);
+        my_not(temp);
         add_one(temp);
     }
     return temp;
 
 }
-void  two_com(char * bin)
+void  my_not(char * bin)
 {
     int i;
     char c;
