@@ -1,6 +1,4 @@
-//
-// Created by shimon2 on 19/02/2024.
-//
+
 
 #ifndef ASEMBLER2_GLOBALS_H
 #define ASEMBLER2_GLOBALS_H
@@ -16,6 +14,7 @@
 #define WORD_SIZE 14
 #define MAX_WORDS 5
 
+
 typedef enum
 {
     A,R,E
@@ -30,7 +29,7 @@ typedef struct
 typedef enum bool
 {
         false,
-        true,
+        true
 }bool;
 typedef enum
 {
@@ -40,7 +39,7 @@ typedef enum
 typedef struct
 {
 
-    long long word_s:WORD_SIZE;
+    int word_s:WORD_SIZE;
 
 
 }word;
@@ -61,7 +60,7 @@ typedef enum
     prn,
     jsr,
     rts,
-    hlt,
+    hlt
 
 }optcode;
 
@@ -70,7 +69,7 @@ typedef enum
     imidiate_a,
     direct_a,
     per_index,
-    direct_reg,
+    direct_reg
 
 }address;
 typedef struct
@@ -85,4 +84,4 @@ typedef struct
 
 
 
-#endif //ASEMBLER2_GLOBALS_H
+#endif 

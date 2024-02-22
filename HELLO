@@ -1,0 +1,2 @@
+mov #-1, r1
+cpy #45,size[x]

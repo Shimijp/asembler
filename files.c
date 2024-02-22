@@ -1,13 +1,11 @@
-//
-// Created by shimon2 on 22/02/2024.
-//
-#include "globals.h"
+
+
 #include "files.h"
 
 FILE * open_file(char * path)
 {
     FILE *fp;
-    fp= fopen(path, "w+");
+    fp= fopen(path, "r+");
     if(!check_file(fp))
     {
         perror("error!");
@@ -15,4 +13,9 @@ FILE * open_file(char * path)
     }
     return fp;
 
+}
+bool check_file(FILE *fp)
+{
+
+	return fp != NULL;
 }

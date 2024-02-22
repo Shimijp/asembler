@@ -1,6 +1,4 @@
-//
-// Created by shimon2 on 19/02/2024.
-//
+
 
 #ifndef ASEMBLER2_BINARY_H
 #define ASEMBLER2_BINARY_H
@@ -19,4 +17,4 @@ void reverse(char * bin);
 
 
 
-#endif //ASEMBLER2_BINARY_H
+#endif 

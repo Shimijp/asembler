@@ -1,6 +1,3 @@
-//
-// Created by shimon2 on 19/02/2024.
-//
 
 
 
@@ -15,7 +12,7 @@ char * dec_to_bin(int num , int bit_size)
 
 
     temp=(char*)malloc((bit_size+1)* sizeof(char ));
-    check_malloc((void*)temp);
+    /*check_malloc((void*)temp);*/
     i=bit_size-1;/* the end of the string*/
     check=num<0;/* if a negative or not*/
 
