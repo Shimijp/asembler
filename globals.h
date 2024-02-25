@@ -9,7 +9,7 @@
 #define REG_NAME_SIZE 2
 #define  MEMORY_SIZE 4096
 #define MAX_BIT 8192
-#define INVALID (-1)
+#define NONE_EXIST (-1)
 #define CMD_SIZE 3
 #define WORD_SIZE 14
 #define MAX_WORDS 5

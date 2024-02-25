@@ -14,4 +14,6 @@ add_executable(asembler2
         files.h
         files.h
         files.c
-        linked_list.c)
+        linked_list.c
+        macros.h
+        macros.c)

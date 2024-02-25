@@ -6,29 +6,51 @@
 
 int main(int argc , char ** argv)
 {
-	FILE *fp;
+	/*FILE *fp;
 	char * str;
 	node *head;
-    node *temp;
-    temp=head;
+    int i;
 
-	fp=open_file("HELLO");
-	init_str(&str,MAX_LINE_SIZE);
-	while(fscanf(fp,"%s",str)!=EOF)
+
+    head=NULL;*/
+
+
+
+
+
+	/*fp=open_file("HELLO");
+	init_str(&str,MAX_LINE_SIZE);*/
+    /*char arr[5][4]={"mov","#-1","r1","end"};*/
+
+	/*while(!feof(fp))
 	{
-        add_first(&temp,str);
-        printf("%s\n",str);
-        temp=temp->next;
+        fscanf(fp,"%s",str);
+
+        add_last(&head,str);
+
+
+
+
 
 	
 	}
-    temp=&head;
-	print_list(&temp);
-	
-	fclose(fp);
-	
 
-    	return 0;
+    print_list(head);
+    delete_val(&head,"r1");
+    print_list(head);
+    printf("length of the list is: %d \n", get_length(&head));
+    delete_head(&head);
+    print_list(head);
+    printf("length of the list is: %d \n", get_length(&head));
+
+
+
+	
+	fclose(fp);*/
+	 printf("%d",atoi(argv[1]));
+
+
+    return 0;
 }
 
 
