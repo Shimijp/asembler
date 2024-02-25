@@ -2,15 +2,36 @@
 
 #include "files.h"
 
+
+void open_All_agrv(int argc,char ** argv)
+{
+	int i;
+	for(i=0;i<argc;i++)
+	{
+		open_file(argv[i]);
+	}
+
+}
 FILE * open_file(char * path)
 {
     FILE *fp;
-    fp= fopen(path, "r+");
+    int new_len;
+    char * name;
+    
+    new_len=strlen(path)+strlen(END_TP);
+    
+    name=(char*)malloc((new_len+1)*sizeof(char));
+    check_malloc((void*)name);
+    strcpy(name,path);
+    strcat(name,END_TP);
+    printf("%s\n",name);
+    fp= fopen(name, "r+");
     if(!check_file(fp))
     {
         perror("error!");
         exit(EXIT_FAILURE);
     }
+    free(name);
     return fp;
 
 }

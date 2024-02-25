@@ -6,51 +6,27 @@
 
 int main(int argc , char ** argv)
 {
-	/*FILE *fp;
-	char * str;
-	node *head;
-    int i;
-
-
-    head=NULL;*/
-
-
-
-
-
-	/*fp=open_file("HELLO");
-	init_str(&str,MAX_LINE_SIZE);*/
-    /*char arr[5][4]={"mov","#-1","r1","end"};*/
-
-	/*while(!feof(fp))
+	char * temp;
+	int i;
+	FILE *fp;
+	
+	init_str(&temp,MAX_LINE_SIZE);
+	for(i=1;i<argc;i++)
 	{
-        fscanf(fp,"%s",str);
-
-        add_last(&head,str);
-
-
-
-
-
+		fp=open_file(argv[i]);
+		while(fgets(temp,MAX_LINE_SIZE,fp)!=NULL)
+		{
+			printf("%s\n",temp);
+		
+		}
 	
+	free(temp);
+	fclose(fp);
 	}
-
-    print_list(head);
-    delete_val(&head,"r1");
-    print_list(head);
-    printf("length of the list is: %d \n", get_length(&head));
-    delete_head(&head);
-    print_list(head);
-    printf("length of the list is: %d \n", get_length(&head));
-
-
-
 	
-	fclose(fp);*/
-	 printf("%d",atoi(argv[1]));
 
 
-    return 0;
+     return 0;
 }
 
 
