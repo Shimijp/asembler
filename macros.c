@@ -1,6 +1,7 @@
 #include "macros.h"
 
 
+
 node * get_macros_names(FILE * fp)
 {
 
@@ -27,38 +28,49 @@ node * get_macros_names(FILE * fp)
      
      return temp;
 }
-macro get_macros_from_file(FILE *fp , char * mcr_name )
+macro * get_macros_from_file(FILE *fp )
 {
 	char * str;
-	macro mcr;
-	int  name_length;
-	
-	length=strlen(mcr_name);
-	
-	init_str(&mcr.name,length);
-	mcr.mcr_cmd=NULL;
-	
-	strcpy(mcr.name,mcr_name);
+	macro *table;
+	node * mcr_list;
+	int  length,name_length, index;
+	bool flag;
 	
 	
+	mcr_list=NULL;
+	mcr_list=get_macros_names(fp);
+	length=get_length(&mcr_list);
+	table=(macro*)malloc(length*sizeof(macro));
+	init_str(&str,MAX_LINE_SIZE);
 	
-	
-	
-	
-	str=(char*)malloc((strlen(temp->str)+1)*sizeof(char));
-	while(fscanf(fp, "%s", str) != EOF)
+	while(fscanf(fp,"%s",str)!=EOF)
 	{
-	
-		if(!strcmp(str,CMP)
+		flag=false;
+		if(!strcmp(str,MCR))
 		{
-			fscanf(fp,"%s",str)
+			fscanf(fp,"%s",str);
+			index=find_val(&mcr_list,str);
+			init_str(&table[index-1].name,strlen(str));
+			table[index-1].mcr_cmd=NULL;
+			while(fgets(str,MAX_LINE_SIZE,fp)!=NULL && !flag)
 			{
-				if(
+				add_last(&table[index-1].mcr_cmd,str);
+				if(strstr(str,END_MCR))
+				{
+					flag=true;
+				
+				}
 			
 			}
+		
 		}
 	
+	
+	
+	
 	}
+	return table;
+	
 
 
 }
