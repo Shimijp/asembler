@@ -8,7 +8,7 @@ int main(int argc , char ** argv)
 	int i;
 	FILE *fp;
 	node * list;
-	
+	macro * table;
 	
 	
 	
@@ -27,6 +27,13 @@ int main(int argc , char ** argv)
 	rewind(fp);
 	list=get_macros_names(fp);
 	print_list(list);
+	
+	
+	table =(macro*)malloc(2*sizeof(macro));
+	table[0].name=(char*)malloc(4*sizeof(char));
+	strcpy(table[0].name,"my_mcr");
+	printf("name: %s\n ",table[0].name);
+	
 	free(temp);
 	fclose(fp);
 	
