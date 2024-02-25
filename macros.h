@@ -6,8 +6,8 @@
 #define END_MCR "endmcr"
 typedef struct
 {
-    char * mcr_name;
-    char * mcr;
+    char * name;
+    node *mcr_cmd;
 }macro;
 void replace_macro(FILE * fp,macro *mcr);
 node * get_macros_names(FILE * fp);
