@@ -10,6 +10,8 @@ typedef struct
     char * mcr;
 }macro;
 void replace_macro(FILE * fp,macro *mcr);
-node * get_macros_from_file(FILE * fp);
+node * get_macros_names(FILE * fp);
 bool is_legal_macro(macro mcr);
 char * get_mcr_name(char * line);
+macro * get_macros_from_file(FILE *fp );
+

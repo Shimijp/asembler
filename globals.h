@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 #define REG_NAME_SIZE 2
 #define  MEMORY_SIZE 4096

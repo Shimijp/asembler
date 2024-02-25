@@ -1,14 +1,16 @@
 
-#include "globals.h"
-#include "binary.h"
-#include "files.h"
-#include "linked_list.h"
 
+#include "binary.h"
+#include "macros.h"
 int main(int argc , char ** argv)
 {
 	char * temp;
 	int i;
 	FILE *fp;
+	node * list;
+	
+	
+	
 	
 	init_str(&temp,MAX_LINE_SIZE);
 	for(i=1;i<argc;i++)
@@ -20,9 +22,13 @@ int main(int argc , char ** argv)
 		
 		}
 	
+	
+	}
+	rewind(fp);
+	list=get_macros_names(fp);
+	print_list(list);
 	free(temp);
 	fclose(fp);
-	}
 	
 
 

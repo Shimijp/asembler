@@ -16,7 +16,7 @@ macros.o: macros.h globals.h linked_list.h macros.c
 	
 
 clean:
-	rm *.o 
+	rm *.o assembler
 	
 
 
