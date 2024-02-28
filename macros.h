@@ -14,4 +14,4 @@ node * get_macros_names(FILE * fp);
 bool is_legal_macro(macro mcr);
 char * get_mcr_name(char * line);
 macro * get_macros_from_file(FILE *fp );
-
+void print_macro_table(macro * table , int size);

@@ -7,6 +7,7 @@ LOOP: jmp L1
 	endmcr
 	mcr my_mcr2
 	mov STR[3] , STR[5]
+	endmcr
 	prn #-5
 	mov STR[5], STR[2]
 	sub r1, r4
