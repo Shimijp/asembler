@@ -12,3 +12,7 @@
 33	250	7310963215619578	CMakeFiles/asembler2.dir/files.c.obj	e3ffbea4b4001ce6
 26	270	7310963215889613	CMakeFiles/asembler2.dir/linked_list.c.obj	2537177efcb21735
 13	152	7310986870693135	CMakeFiles/asembler2.dir/macros.c.obj	5e1a550382a5a59
+73	1484	7324967687356679	CMakeFiles/asembler2.dir/firsrt_pass.c.obj	90d0556ad760e0b5
+23	1520	7324967687726773	CMakeFiles/asembler2.dir/main.c.obj	c352403c4e1c70de
+57	1550	7324967688027376	CMakeFiles/asembler2.dir/macros.c.obj	5e1a550382a5a59
+1550	2213	7324967694560477	asembler2.exe	9e8f0f0e0a79a207
