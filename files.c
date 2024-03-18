@@ -18,12 +18,12 @@ FILE * open_file(char * path)
     int new_len;
     char * name;
     
-    new_len=strlen(path)+strlen(END_TP);
-    
-    name=(char*)malloc((new_len+1)*sizeof(char));
-    check_malloc((void*)name);
+    new_len=strlen(path)+strlen(".as");
+
+    init_str(&name,new_len);
+
     strcpy(name,path);
-    strcat(name,END_TP);
+    strcat(name,".as");
     printf("%s\n",name);
     fp= fopen(name, "r+");
     if(!check_file(fp))

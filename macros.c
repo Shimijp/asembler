@@ -33,8 +33,8 @@ macro * get_macros_from_file(FILE *fp )
 	char * str;
 	macro *table;
 	node * mcr_list;
-	int  length,name_length, index;
-	bool flag;
+	int  length, index;
+
 
     /*creating a  table of all the macros in the file so that there is name and list for all thor commands*/
 	mcr_list=NULL;
@@ -42,62 +42,130 @@ macro * get_macros_from_file(FILE *fp )
 	mcr_list=get_macros_names(fp);
     /* getting the length of the list*/
 	length=get_length(&mcr_list);
-	table=(macro*)malloc(length*sizeof(macro));
-	init_str(&str,MAX_LINE_SIZE);
+    /*initializing the string to scan to*/
+    init_str(&str,MAX_LINE_SIZE);
+    if(length<=0)
+    {
+        return NULL;
+    }
+	table=(macro*)malloc((length+1)*sizeof(macro));
 	index=0;
-	while(fscanf(fp,"%s",str)!=EOF)
-        {
-            flag=true;
-           if(!strcmp(str,MCR))
-           {
-               init_str(&table[index].name,strlen(str));
-               strcpy(table[index].name,str);
-               table[index].mcr_cmd=NULL;
+    while(!feof(fp))
+    {
+        fscanf(fp,"%s",str);
 
-               while(fscanf(fp,"%s",str)!=EOF && flag)
-               {
-                   flag= strcmp(str,END_MCR);
-                   if(flag)
-                   {
-                       add_last(&(table[index].mcr_cmd),str);
-                   }
-                   else
-                   {
-                       add_last(&(table[index].mcr_cmd),"\n");
-                   }
-               }
-           }
+        if(!strcmp(str,MCR))
+        {
+
+            get_mcr_cmd(fp,&table[index]);
+            index++;
 
         }
+    }
 
 
-	
+    free(mcr_list);
+    free(str);
+    rewind(fp);
+	return table;
 
 
 }
-char * get_mcr_name(char * line)
+
+void get_mcr_cmd(FILE * fp , macro *table)
 {
-    char * name,c;
-    int i;
-    init_str(&name,MAX_LINE_SIZE);
-    check_malloc((void*)name);
-    i=0;
-    if(isspace(line[i]))
-	{
-			
-		while(isspace(c=line[i]))
-		{
-				i++;
-		}
-		strcpy(name,(line+i));
-		return name;
-			
-	} else
-	{
-		return NULL;
-	}
+    char * str;
+
+    bool flag;
+    init_str(&str,MAX_LINE_SIZE);
+
+    flag=true;
+
+    fscanf(fp,"%s",str);
+    init_str(&(table->name),strlen(str));
+    strcpy(table->name,str);
+    table->mcr_cmd=NULL;
+
+        while((fgets(str,MAX_LINE_SIZE,fp)!=NULL) && flag)
+
+
+            {
+                if(!strstr(str,END_MCR))
+                {
+
+                    add_last(&(table->mcr_cmd),str);
+
+                }
+                else
+                {
+                    flag=false;
+                }
+
+            }
+
+    fseek(fp,(long)((-1)*strlen(str)),SEEK_CUR);
 
 }
+FILE * rewrite_macros(char * name)
+{
+    FILE * fp,*nfp;
+    node * names;
+    char *new_name,*str, *res;
+    int new_len,table_len, i;
+    macro * table;
+
+
+
+    new_len=(strlen(name)+strlen(".am"));
+    init_str(&new_name,new_len);
+    strcpy(new_name,name);
+    strcat(new_name,".am");
+    fp=open_file(name);
+    nfp=fopen(new_name,"w");
+    init_str(&str,MAX_LINE_SIZE);
+    names= get_macros_names(fp);
+    table=get_macros_from_file(fp);
+    table_len= get_length(&names);
+
+    str=fgets(str,MAX_LINE_SIZE,fp);
+    while(str!=NULL)
+    {
+        res= get_first_word(str);
+        i= find_mcr_name(table,res,table_len);
+        if(i<0 && strcmp(res,"mcr")!=0)
+        {
+            fprintf(nfp,"%s",str);
+        }
+        else if(i>=0)
+        {
+            while(table[i].mcr_cmd!=NULL)
+            {
+                fprintf(nfp,"%s",table[i].mcr_cmd->str);
+                table[i].mcr_cmd=table[i].mcr_cmd->next;
+            }
+        }else if(!strcmp(res,"mcr"))
+        {
+            while(strcmp("endmcr",res)!=0)
+            {
+                str= fgets(str,MAX_LINE_SIZE,fp);
+                res= get_first_word(str);
+            }
+        }
+        str= fgets(str,MAX_LINE_SIZE,fp);
+
+
+
+
+    }
+    free(names);
+    free(new_name);
+    free(str);
+    rewind(fp);
+    fclose(fp);
+    return nfp;
+
+}
+
 
 void print_macro_table(macro * table , int size)
 {
@@ -105,9 +173,51 @@ void print_macro_table(macro * table , int size)
 
     for(i=0;i<size;i++)
     {
-        printf("name: %s",table[0].name);
+        printf("name: %s",table[i].name);
         print_list(table[i].mcr_cmd);
     }
 
 
+}
+char * get_first_word(char * line)
+{
+    int i , j , len;
+    char * res,c;
+    i=j=0;
+    init_str(&res,MAX_LINE_SIZE);
+
+    strcpy(res,line);
+
+    while(isspace(*res) && *res!='\0')
+    {
+        i++;
+        res++;
+    }
+    j=i;
+    while(!isspace(res[j]) && res[j]!= '\0')
+    {
+        j++;
+    }
+    res[j]='\0';
+
+    return res;
+
+}
+int find_mcr_name(macro *table,char * name, int size)
+{
+    int i;
+    for(i=0;i<size;i++)
+    {
+        if(!strcmp(table[i].name,name))
+        {
+            return i;
+        }
+    }
+    return -1;
+
+}
+bool is_legal_macro(macro mcr)
+{
+    /*todo*/
+    return false;
 }

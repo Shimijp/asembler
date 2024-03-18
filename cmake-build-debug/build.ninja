@@ -85,6 +85,12 @@ build CMakeFiles/asembler2.dir/macros.c.obj: C_COMPILER__asembler2_unscanned_Deb
   OBJECT_DIR = CMakeFiles\asembler2.dir
   OBJECT_FILE_DIR = CMakeFiles\asembler2.dir
 
+build CMakeFiles/asembler2.dir/firsrt_pass.c.obj: C_COMPILER__asembler2_unscanned_Debug C$:/Users/shimon2/CLionProjects/asembler2/firsrt_pass.c || cmake_object_order_depends_target_asembler2
+  DEP_FILE = CMakeFiles\asembler2.dir\firsrt_pass.c.obj.d
+  FLAGS = -g -std=gnu11 -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\asembler2.dir
+  OBJECT_FILE_DIR = CMakeFiles\asembler2.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target asembler2
@@ -93,7 +99,7 @@ build CMakeFiles/asembler2.dir/macros.c.obj: C_COMPILER__asembler2_unscanned_Deb
 #############################################
 # Link the executable asembler2.exe
 
-build asembler2.exe: C_EXECUTABLE_LINKER__asembler2_Debug CMakeFiles/asembler2.dir/main.c.obj CMakeFiles/asembler2.dir/binary.c.obj CMakeFiles/asembler2.dir/memory.c.obj CMakeFiles/asembler2.dir/files.c.obj CMakeFiles/asembler2.dir/linked_list.c.obj CMakeFiles/asembler2.dir/macros.c.obj
+build asembler2.exe: C_EXECUTABLE_LINKER__asembler2_Debug CMakeFiles/asembler2.dir/main.c.obj CMakeFiles/asembler2.dir/binary.c.obj CMakeFiles/asembler2.dir/memory.c.obj CMakeFiles/asembler2.dir/files.c.obj CMakeFiles/asembler2.dir/linked_list.c.obj CMakeFiles/asembler2.dir/macros.c.obj CMakeFiles/asembler2.dir/firsrt_pass.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\asembler2.dir

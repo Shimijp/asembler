@@ -17,4 +17,7 @@ add_executable(asembler2
         linked_list.c
         macros.h
         macros.c
-        macros.c)
+        macros.c
+        firsrt_pass.c
+        firsrt_pass.h
+        firsrt_pass.h)

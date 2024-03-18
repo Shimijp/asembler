@@ -8,9 +8,9 @@ LOOP: jmp L1
 	mcr my_mcr2
 	mov STR[3] , STR[5]
 	endmcr
-	prn #-5
 	mov STR[5], STR[2]
 	sub r1, r4
+	prn #-5
 	m_mcr
 	my_mcr2
 L1: inc K

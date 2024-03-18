@@ -1,4 +1,5 @@
-int *call();
+
+
 
 #include "binary.h"
 #include "macros.h"
@@ -9,36 +10,34 @@ int main(int argc , char ** argv)
 	FILE *fp;
 	node * list;
 	macro * table;
+    const char* instructions[] = {
+            "mov",
+            "cmp",
+            "add",
+            "sub",
+            "not",
+            "clr",
+            "lea",
+            "inc",
+            "dec",
+            "jmp",
+            "bne",
+            "red",
+            "prn",
+            "jsr",
+            "rts",
+            "hlt"
+    };
 
-
-	c=0;
 	init_str(&temp,MAX_LINE_SIZE);
-	for(i=1;i<argc;i++) {
-        fp = open_file("C:\\Users\\shimon2\\CLionProjects\\asembler2\\x");
 
-		while(!feof(fp))
-		{
-            fscanf(fp,"%s",temp);
-            printf("%s\n",temp);
-
-
-
-		}
-
-
-	}
-	rewind(fp);
-	list=get_macros_names(fp);
-	print_list(list);
-	table=get_macros_from_file(fp);
-    print_macro_table(table, 3);
-
+    fp=rewrite_macros(  "C:\\Users\\shimon2\\CLionProjects\\asembler2\\x");
 
 
 
 
 	free(temp);
-	fclose(fp);
+    fclose(fp);
 
 
 
@@ -49,7 +48,8 @@ int main(int argc , char ** argv)
 
 
 
-     return 0;
+
+    return 0;
 }
 
 
