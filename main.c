@@ -37,9 +37,15 @@ int main(int argc , char ** argv)
 
 
 	free(temp);
+<<<<<<< HEAD
     fclose(fp);
 
 
+=======
+	fclose(fp);
+	
+	printf("Hello World!");
+>>>>>>> 1006781594da27ccc09b2b89b07a97a45ef26d39
 
 
 
