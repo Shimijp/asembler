@@ -1,5 +1,4 @@
-
-
+/*Tal Averbuch*/
 #ifndef ASEMBLER2_MDEFINE_H
 #define ASEMBLER2_MDEFINE_H
 

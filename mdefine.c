@@ -1,3 +1,5 @@
+/* Tal Averbuch */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -105,9 +107,18 @@ void add_last_sign(sign **ptr, char *name, int value)
 sign get_constants(FILE *nfp)
 {
     sign *mdefine; /* the table that will hold hold all variables with int values in the file */
+    char *line, *first_word;
 
     mdefine = NULL;
 
-    while
+    line = fgets(line,MAX_LINE_SIZE,nfp);
+    while(line != NULL)
+    {
+        first_word = get_first_word(line);
+        if (strcmp(first_word, DEFINE) == 0)
+        {
+
+        }
+    }
 
 }
