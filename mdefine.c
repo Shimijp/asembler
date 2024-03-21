@@ -22,7 +22,7 @@ FILE *open_am_file(char *name)
 
     strcpy(new_name,name);
     strcat(new_name,".am");
-    printf("%s\n",name);
+
     nfp = fopen(new_name, "w+");
     if(!check_file(nfp))
     {
@@ -75,7 +75,7 @@ void add_last_sign(sign **ptr, char *name, int value)
 {
     if (v_name_exists(ptr, name))
     {
-        printf("Variable name '%s' already exists in mdefine table. Duplicate names are not allowed.\n", name);
+        //printf("Variable name '%s' already exists in mdefine table. Duplicate names are not allowed.\n", name);
         exit(EXIT_FAILURE);
     }
     /* add check if label with the same name already exists */
@@ -104,21 +104,37 @@ void add_last_sign(sign **ptr, char *name, int value)
     }
 }
 
-sign get_constants(FILE *nfp)
+sign *get_signs(FILE *nfp)
 {
-    sign *mdefine; /* the table that will hold hold all variables with int values in the file */
-    char *line, *first_word;
+    sign *head_mdefine = NULL;
+    sign **mdefine = &head_mdefine; /* the table that will hold all variables with int values in the file */
 
-    mdefine = NULL;
+    char *first_word;
+    char line[MAX_LINE_SIZE], v_name[MAX_LABEL_LENGTH];
+    int val;
 
-    line = fgets(line,MAX_LINE_SIZE,nfp);
-    while(line != NULL)
+    while(fgets(line,MAX_LINE_SIZE,nfp) != NULL)
     {
         first_word = get_first_word(line);
+        unsigned long fw_len = strlen(first_word);
         if (strcmp(first_word, DEFINE) == 0)
         {
-
+            if (sscanf(line, "%[^\n= ] = %d", v_name, &val) == 2)
+            {
+                add_last_sign(mdefine, v_name, val);
+            }
         }
-    }
+        else if (fw_len > 1 && first_word[fw_len - 1] == ':' && first_word[fw_len - 2] != ' ')
+        {
+            strncpy(v_name, first_word, fw_len - 1);
+            v_name[fw_len - 1] = '\0';
+            add_last_sign(mdefine, v_name, 0); /*won't actually be zero, will hold value of the address*/
+        }
 
+        free(first_word);
+    }
+    return head_mdefine;
 }
+
+
+

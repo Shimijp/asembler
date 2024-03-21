@@ -25,8 +25,10 @@ typedef struct sign {
 void add_first_sign(sign **ptr, char *name, int val);
 bool v_name_exists(sign **ptr, char *name);
 void add_last_sign(sign **ptr, char *name, int val);
-sign get_constants(FILE *nfp); /* adds the constants that are declared with .define */
-sign get_labels(FILE *nfp); /* adds the variables that are declared with a label and hold an int value */
+sign *get_signs(FILE *nfp); /* adds the constants that are declared with .define or with LABEL: */
+
+
+
 
 FILE *rewrite_signs(char *name);
 FILE *open_am_file(char *name);
