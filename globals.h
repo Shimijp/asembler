@@ -14,7 +14,24 @@
 #define CMD_SIZE 3
 #define WORD_SIZE 14
 #define MAX_WORDS 5
-
+static const char* instructions[] = {
+        "mov",
+        "cmp",
+        "add",
+        "sub",
+        "not",
+        "clr",
+        "lea",
+        "inc",
+        "dec",
+        "jmp",
+        "bne",
+        "red",
+        "prn",
+        "jsr",
+        "rts",
+        "hlt"
+};
 
 typedef enum
 {
