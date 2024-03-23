@@ -133,6 +133,7 @@ sign *get_signs(FILE *nfp)
 
         free(first_word);
     }
+    rewind(nfp);
     return head_mdefine;
 }
 
