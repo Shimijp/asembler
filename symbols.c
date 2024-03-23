@@ -7,7 +7,7 @@
 #include "globals.h"
 #include "files.h"
 #include "memory.h"
-#include "mdefine.h"
+#include "symbols.h"
 #include "macros.h" /*to use get_first_word*/
 
 FILE *open_am_file(char *name)

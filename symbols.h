@@ -1,6 +1,6 @@
 /*Tal Averbuch*/
-#ifndef ASEMBLER2_MDEFINE_H
-#define ASEMBLER2_MDEFINE_H
+#ifndef ASEMBLER2_SYMBOLS_H
+#define ASEMBLER2_SYMBOLS_H
 
 #include "globals.h"
 #include "memory.h"
@@ -39,4 +39,4 @@ char get_identifier(char *line);
 FILE *rewrite_signs(char *name);
 FILE *open_am_file(char *name);
 
-#endif //ASEMBLER2_MDEFINE_H
+#endif //ASEMBLER2_SYMBOLS_H
