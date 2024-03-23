@@ -1,7 +1,7 @@
 .define sz = 2
 MAIN: mov r3, LIST[sz]
 LOOP: jmp L1
-	mcr m_mcr
+	mcr my_mcr
 	cmp r3, #sz
 	bne END
 	endmcr
@@ -11,7 +11,7 @@ LOOP: jmp L1
 	mov STR[5], STR[2]
 	sub r1, r4
 	prn #-5
-	m_mcr
+	my_mcr
 	my_mcr2
 L1: inc K
 	bne LOOP

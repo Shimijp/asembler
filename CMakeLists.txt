@@ -20,4 +20,6 @@ add_executable(asembler2
         macros.c
         firsrt_pass.c
         firsrt_pass.h
-        firsrt_pass.h)
+        firsrt_pass.h
+        mdefine.h
+        mdefine.c)

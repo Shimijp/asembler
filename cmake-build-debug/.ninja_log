@@ -1,15 +1,15 @@
 # ninja log v5
 365	416	1708620133530243029	CMakeFiles/asembler2.dir/files.c.o	9095095dd7d8e8a3
-12	246	7310963215609596	CMakeFiles/asembler2.dir/binary.c.obj	124545c987906a16
+19	680	7328890746187469	CMakeFiles/asembler2.dir/binary.c.obj	124545c987906a16
 0	120	1708623584598555114	CMakeFiles/asembler2.dir/main.c.o	bacf557c29982b64
-18	232	7310963215459561	CMakeFiles/asembler2.dir/memory.c.obj	b6f31f179fa10dba
+31	661	7328890745957472	CMakeFiles/asembler2.dir/memory.c.obj	b6f31f179fa10dba
 94	187	1708620705614252695	CMakeFiles/asembler2.dir/binary.c.o	19630c8888bf7999
-23	1520	7324967687726773	CMakeFiles/asembler2.dir/main.c.obj	c352403c4e1c70de
-1550	2213	7324967694560477	asembler2.exe	9e8f0f0e0a79a207
+1	669	7328890746077453	CMakeFiles/asembler2.dir/main.c.obj	c352403c4e1c70de
+164	351	7328892608603183	asembler2.exe	9e8f0f0e0a79a207
 187	297	1708620705722252697	CMakeFiles/asembler2.dir/memory.c.o	36952224939e4e62
 707	770	1708623153298294053	CMakeFiles/asembler2.dir/linked_list.c.o	463c1001a90a39c
 120	200	1708623584678555115	asembler2	77bdc736d44453ed
-33	250	7310963215619578	CMakeFiles/asembler2.dir/files.c.obj	e3ffbea4b4001ce6
-26	270	7310963215889613	CMakeFiles/asembler2.dir/linked_list.c.obj	2537177efcb21735
-57	1550	7324967688027376	CMakeFiles/asembler2.dir/macros.c.obj	5e1a550382a5a59
-73	1484	7324967687356679	CMakeFiles/asembler2.dir/firsrt_pass.c.obj	90d0556ad760e0b5
+82	683	7328890746177455	CMakeFiles/asembler2.dir/files.c.obj	e3ffbea4b4001ce6
+43	703	7328890746457486	CMakeFiles/asembler2.dir/linked_list.c.obj	2537177efcb21735
+6	163	7328892606847577	CMakeFiles/asembler2.dir/macros.c.obj	5e1a550382a5a59
+54	621	7328890745557468	CMakeFiles/asembler2.dir/firsrt_pass.c.obj	90d0556ad760e0b5
