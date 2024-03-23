@@ -75,7 +75,7 @@ void add_last_sign(sign **ptr, char *name, int value)
 {
     if (v_name_exists(ptr, name))
     {
-        //printf("Variable name '%s' already exists in mdefine table. Duplicate names are not allowed.\n", name);
+        fprintf(stderr,"Variable name '%s' already defined . Duplicate names are not allowed.\n", name);
         exit(EXIT_FAILURE);
     }
     /* add check if label with the same name already exists */
