@@ -55,7 +55,7 @@ bool v_name_exists(sign **ptr, char *name)
     return false; /* name doesn't exist */
 }
 
-void add_first_sign(sign **ptr, char *name, int val)
+void add_first_sign(sign **ptr, char *name,char *identifier, int val)
 {
     sign *new_sign = (sign *) malloc(sizeof(sign));
 
@@ -67,13 +67,14 @@ void add_first_sign(sign **ptr, char *name, int val)
     {
         strncpy(new_sign->v_name, name, MAX_LABEL_LENGTH - 1);
         new_sign->v_name[MAX_LABEL_LENGTH - 1] = '\0'; /* Ensure null termination */
+        strcpy(new_sign->identifier, identifier);
         new_sign->val = val;
         new_sign->next = *ptr; /* Point to the old first node */
         *ptr = new_sign; /* Update the head to the new node */
     }
 }
 
-void add_last_sign(sign **ptr, char *name, int value)
+void add_last_sign(sign **ptr, char *name, char *identifier, int value)
 {
     if (v_name_exists(ptr, name))
     {
@@ -83,7 +84,7 @@ void add_last_sign(sign **ptr, char *name, int value)
     /* add check if label with the same name already exists */
     if ((*ptr) == NULL)
     {
-        add_first_sign(ptr, name, value);
+        add_first_sign(ptr, name, identifier, value);
     }
 
     else
@@ -102,6 +103,7 @@ void add_last_sign(sign **ptr, char *name, int value)
         strncpy(temp->v_name, name, MAX_LABEL_LENGTH -1);
         temp->v_name[MAX_LABEL_LENGTH - 1] = '\0';
         temp->val = value;
+        strcpy(temp->identifier, identifier);
         temp->next = NULL;
     }
 }
@@ -122,12 +124,13 @@ sign *get_signs(FILE *nfp)
         int fw_len = (int)strlen(first_word);
         if (strcmp(first_word, DEFINE) == 0)
         {
+
             line += (strlen(first_word) + 1);
             //first_word = get_first_word(line);
             if (sscanf(line, "%[^\n= ] = %d", v_name, &val) == 2)
             {
                 printf("%s - %d\n", v_name, val);
-                add_last_sign(mdefine, v_name, val);
+                add_last_sign(mdefine, v_name, MDEFINE, val);
             }
 
         }
@@ -136,7 +139,7 @@ sign *get_signs(FILE *nfp)
             strncpy(v_name, first_word, fw_len - 1);
             v_name[fw_len - 1] = '\0';
             printf("%s\n", v_name);
-            add_last_sign(mdefine, v_name, 0); /*won't actually be zero, will hold value of the address*/
+            add_last_sign(mdefine, v_name, "\0", 0); /*won't actually be zero, will hold value of the address*/
         }
     }
     free(first_word);
@@ -156,4 +159,7 @@ void print_sign_table(sign * table)
     free(temp);
 }
 
+char get_identifier(char *line)
+{
 
+}
