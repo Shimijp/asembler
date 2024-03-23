@@ -10,24 +10,7 @@ int main(int argc , char ** argv)
 	FILE *fp;
 	node * list;
 	macro * table;
-    const char* instructions[] = {
-            "mov",
-            "cmp",
-            "add",
-            "sub",
-            "not",
-            "clr",
-            "lea",
-            "inc",
-            "dec",
-            "jmp",
-            "bne",
-            "red",
-            "prn",
-            "jsr",
-            "rts",
-            "hlt"
-    };
+
 
 	init_str(&temp,MAX_LINE_SIZE);
 
