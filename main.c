@@ -3,6 +3,7 @@
 
 #include "binary.h"
 #include "macros.h"
+#include "mdefine.h"
 int main(int argc , char ** argv)
 {
 	char * temp,c;
@@ -14,7 +15,7 @@ int main(int argc , char ** argv)
 
 	init_str(&temp,MAX_LINE_SIZE);
 
-    fp =rewrite_macros(  "C:\\Users\\shimon2\\CLionProjects\\asembler2\\x");
+    fp =rewrite_macros(  "/Users/talaverbuch/CLionProjects/asembler/x");
 
     printf("%d\n",fp==NULL);
     while(fgets(temp,MAX_LINE_SIZE,fp)!=NULL)
@@ -22,7 +23,8 @@ int main(int argc , char ** argv)
         printf("%s",temp);
     }
 
-
+    rewind(fp);
+    get_signs(fp);
 
 
 	free(temp);

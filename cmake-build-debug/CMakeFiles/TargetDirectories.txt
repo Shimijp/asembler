@@ -1,3 +1,3 @@
-C:/Users/shimon2/CLionProjects/asembler2/cmake-build-debug/CMakeFiles/asembler2.dir
-C:/Users/shimon2/CLionProjects/asembler2/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/shimon2/CLionProjects/asembler2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/Users/talaverbuch/CLionProjects/asembler/cmake-build-debug/CMakeFiles/asembler2.dir
+/Users/talaverbuch/CLionProjects/asembler/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/talaverbuch/CLionProjects/asembler/cmake-build-debug/CMakeFiles/rebuild_cache.dir

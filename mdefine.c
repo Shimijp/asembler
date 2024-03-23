@@ -121,6 +121,7 @@ sign *get_signs(FILE *nfp)
         {
             if (sscanf(line, "%[^\n= ] = %d", v_name, &val) == 2)
             {
+                printf("%s - %d\n", v_name, val);
                 add_last_sign(mdefine, v_name, val);
             }
         }
