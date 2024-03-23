@@ -26,7 +26,7 @@ void add_first_sign(sign **ptr, char *name, int val);
 bool v_name_exists(sign **ptr, char *name);
 void add_last_sign(sign **ptr, char *name, int val);
 sign *get_signs(FILE *nfp); /* adds the constants that are declared with .define or with LABEL: */
-
+void print_sign_table(sign * table);
 
 
 

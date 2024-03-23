@@ -49,6 +49,8 @@ bool v_name_exists(sign **ptr, char *name)
         {
             return true;
         }
+        else
+            temp = temp->next;
     }
     return false; /* name doesn't exist */
 }
@@ -121,11 +123,13 @@ sign *get_signs(FILE *nfp)
         if (strcmp(first_word, DEFINE) == 0)
         {
             line += (strlen(first_word) + 1);
+            //first_word = get_first_word(line);
             if (sscanf(line, "%[^\n= ] = %d", v_name, &val) == 2)
             {
                 printf("%s - %d\n", v_name, val);
                 add_last_sign(mdefine, v_name, val);
             }
+
         }
         else if (fw_len > 1 && first_word[fw_len - 1] == ':' && first_word[fw_len - 2] != ' ')
         {
@@ -140,5 +144,16 @@ sign *get_signs(FILE *nfp)
     return head_mdefine;
 }
 
+void print_sign_table(sign * table)
+{
+    sign * temp;
+    temp=table;
+    while(temp!= NULL)
+    {
+        printf("name: %s val: %d\n",temp->v_name,temp->val);
+        temp=temp->next;
+    }
+    free(temp);
+}
 
 
