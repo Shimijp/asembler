@@ -110,15 +110,17 @@ sign *get_signs(FILE *nfp)
     sign **mdefine = &head_mdefine; /* the table that will hold all variables with int values in the file */
 
     char *first_word;
-    char line[MAX_LINE_SIZE], v_name[MAX_LABEL_LENGTH];
+    char *line, v_name[MAX_LABEL_LENGTH];
     int val;
 
+    init_str(&line, MAX_LINE_SIZE);
     while(fgets(line,MAX_LINE_SIZE,nfp) != NULL)
     {
         first_word = get_first_word(line);
-        unsigned long fw_len = strlen(first_word);
+        int fw_len = (int)strlen(first_word);
         if (strcmp(first_word, DEFINE) == 0)
         {
+            line += (strlen(first_word) + 1);
             if (sscanf(line, "%[^\n= ] = %d", v_name, &val) == 2)
             {
                 printf("%s - %d\n", v_name, val);
@@ -129,11 +131,11 @@ sign *get_signs(FILE *nfp)
         {
             strncpy(v_name, first_word, fw_len - 1);
             v_name[fw_len - 1] = '\0';
+            printf("%s\n", v_name);
             add_last_sign(mdefine, v_name, 0); /*won't actually be zero, will hold value of the address*/
         }
-
-        free(first_word);
     }
+    free(first_word);
     rewind(nfp);
     return head_mdefine;
 }

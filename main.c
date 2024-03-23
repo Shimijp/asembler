@@ -17,13 +17,13 @@ int main(int argc , char ** argv)
 
     fp =rewrite_macros(  "/Users/talaverbuch/CLionProjects/asembler/x");
 
-    printf("%d\n",fp==NULL);
-    while(fgets(temp,MAX_LINE_SIZE,fp)!=NULL)
-    {
-        printf("%s",temp);
-    }
-
-    rewind(fp);
+//    printf("%d\n",fp==NULL);
+//    while(fgets(temp,MAX_LINE_SIZE,fp)!=NULL)
+//    {
+//        printf("%s",temp);
+//    }
+//
+//    rewind(fp);
     get_signs(fp);
 
 
