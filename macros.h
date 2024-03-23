@@ -11,7 +11,7 @@ typedef struct
 }macro;
 void replace_macro(FILE * fp,macro *mcr);
 node * get_macros_names(FILE * fp);
-bool is_legal_macro(macro mcr);
+bool is_legal_macro(char * name);
 macro * get_macros_from_file(FILE *fp );
 void get_mcr_cmd(FILE * fp, macro * table);
 void print_macro_table(macro * table , int size);
@@ -19,3 +19,4 @@ FILE * rewrite_macros(char * name);
 char * get_first_word(char * line);
 void print_macros_to_file(FILE *fp,int num, macro * table);
 int find_mcr_name(macro *table,char * name, int size);
+void check_macros(FILE *fp);

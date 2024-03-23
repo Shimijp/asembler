@@ -115,18 +115,23 @@ FILE * rewrite_macros(char * name)
     macro * table;
 
 
-
+    /* creating the .am file*/
     new_len=(strlen(name)+strlen(".am"));
     init_str(&new_name,new_len);
     strcpy(new_name,name);
     strcat(new_name,".am");
     fp=open_file(name);
-    nfp=fopen(new_name,"w");
+
+    /*now, check if all macros names are legal, if not an error message will apeer with line number*/
+    check_macros(fp);
+
     init_str(&str,MAX_LINE_SIZE);
     names= get_macros_names(fp);
     table=get_macros_from_file(fp);
     table_len= get_length(&names);
 
+
+    nfp=fopen(new_name,"w");
     str=fgets(str,MAX_LINE_SIZE,fp);
     while(str!=NULL)
     {
@@ -216,8 +221,49 @@ int find_mcr_name(macro *table,char * name, int size)
     return -1;
 
 }
-bool is_legal_macro(macro mcr)
+void check_macros(FILE * fp)
 {
-    /*todo*/
-    return false;
+    char * line,*word;
+    int i;
+    init_str(&line,MAX_LINE_SIZE+1);
+    i=0;
+    while(fgets(line,MAX_LINE_SIZE,fp)!=NULL)
+    {
+        i++;
+        word= get_first_word(line);
+        /* if it is a macro definition*/
+        if(!strcmp(word,MCR))
+        {
+            line+=(strlen(word)+1);/*move to the next word*/
+            word= get_first_word(line);
+            if(!is_legal_macro(word))/* search for macro name in table of commands*/
+            {
+                fprintf(stderr,"%s %s %d\n",word,"is not a legal macro name name, in line:", i);
+                free(line);
+                free(word);
+                rewind(fp);
+                exit(EXIT_FAILURE);
+            }
+
+        }
+
+    }
+    rewind(fp);
+
+
+}
+bool is_legal_macro(char * name)
+{
+    int i;
+    for(i=0;i<=hlt;i++)
+    {
+        if(!strcmp(name,instructions[i]))
+        {
+
+            return false;
+        }
+    }
+    return true;
+
+
 }
