@@ -131,7 +131,7 @@ FILE * rewrite_macros(char * name)
     table_len= get_length(&names);
 
 
-    nfp=fopen(new_name,"w");
+    nfp=fopen(new_name,"w+");
     str=fgets(str,MAX_LINE_SIZE,fp);
     while(str!=NULL)
     {
@@ -167,6 +167,9 @@ FILE * rewrite_macros(char * name)
     free(str);
     rewind(fp);
     fclose(fp);
+    rewind(nfp);
+
+
     return nfp;
 
 }
