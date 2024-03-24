@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "globals.h"
 #include "files.h"
@@ -134,7 +135,8 @@ sign *get_signs(FILE *nfp)
             }
 
         }
-        else if (fw_len > 1 && first_word[fw_len - 1] == ':' && first_word[fw_len - 2] != ' ')
+//        else if (fw_len > 1 && first_word[fw_len - 1] == ':' && first_word[fw_len - 2] != ' ')
+        else if (is_label(first_word))
         {
             strncpy(v_name, first_word, fw_len - 1);
             v_name[fw_len - 1] = '\0';
@@ -159,7 +161,52 @@ void print_sign_table(sign * table)
     free(temp);
 }
 
+bool is_label(char *name) {
+    int len = (int)strlen(name);
+    if (len > 1 && len <= MAX_LABEL_LENGTH)
+    {
+        if (name[len-1] == COLON && name[len-2] != ' ')
+        {
+            if(isalpha(name[0]))
+            {
+                for(int i = 1; i <= len-2; i++)
+                {
+                    if (!(isalpha(name[i]) || isdigit(name[i])))
+                    {
+                        fprintf(stderr, "not a legal label name\n");
+                        return false;
+                    }
+                }
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 char get_identifier(char *line)
 {
-
+    for (int i = 0; i < IDENTIFIERS_NUM; i++)
+    {
+        if(strcmp(get_first_word(line), identifiers[i]) == 0)
+            return *identifiers[i];
+        else if (is_label(get_first_word(line))) {
+            if(strcmp(get_next_word(line), identifiers[i]) == 0)
+                return *identifiers[i];
+        }
+    }
+    return *identifiers[IDENTIFIERS_NUM];
 }
+
+
+//bool compare_ignore_whitespace(const char *line, const char *identifier) {
+//    while(*line && *identifier) {
+//        while(isspace((unsigned char)*line)) line++;
+//        if(*line != *identifier) {
+//            return false; /* does not match */
+//        }
+//        line++;
+//        identifier++;
+//    }
+//    return *identifier == '\0' && !isalpha((unsigned char)*line) ? true : false;
+//}
