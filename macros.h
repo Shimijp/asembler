@@ -19,4 +19,4 @@ FILE * rewrite_macros(char * name);
 char * get_first_word(char * line);
 void print_macros_to_file(FILE *fp,int num, macro * table);
 int find_mcr_name(macro *table,char * name, int size);
-void check_macros(FILE *fp);
+bool check_macros(FILE *fp);

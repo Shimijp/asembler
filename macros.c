@@ -123,7 +123,10 @@ FILE * rewrite_macros(char * name)
     fp=open_file(name);
 
     /*now, check if all macros names are legal, if not an error message will apeer with line number*/
-    check_macros(fp);
+    if(!check_macros(fp))
+    {
+        exit(EXIT_FAILURE);
+    }
 
     init_str(&str,MAX_LINE_SIZE);
     names= get_macros_names(fp);
@@ -224,11 +227,14 @@ int find_mcr_name(macro *table,char * name, int size)
     return -1;
 
 }
-void check_macros(FILE * fp)
+bool check_macros(FILE * fp)
 {
     char * line,*word;
     int i;
+    bool flag;
     init_str(&line,MAX_LINE_SIZE+1);
+
+    flag=true;
     i=0;
     while(fgets(line,MAX_LINE_SIZE,fp)!=NULL)
     {
@@ -242,16 +248,18 @@ void check_macros(FILE * fp)
             if(!is_legal_macro(word))/* search for macro name in table of commands*/
             {
                 fprintf(stderr,"%s %s %d\n",word,"is not a legal macro name name, in line:", i);
-                free(line);
-                free(word);
-                rewind(fp);
-                exit(EXIT_FAILURE);
+
+                flag=false;
             }
 
         }
 
+
     }
+
     rewind(fp);
+    return flag;
+
 
 
 }
