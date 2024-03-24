@@ -2,6 +2,7 @@
 
 
 
+
 node * get_macros_names(FILE * fp)
 {
 
@@ -190,30 +191,7 @@ void print_macro_table(macro * table , int size)
 
 
 }
-char * get_first_word(char * line)
-{
-    int i , j , len;
-    char * res,c;
-    i=j=0;
-    init_str(&res,MAX_LINE_SIZE);
 
-    strcpy(res,line);
-
-    while(isspace(*res) && *res!='\0')
-    {
-        i++;
-        res++;
-    }
-    j=i;
-    while(!isspace(res[j]) && res[j]!= '\0')
-    {
-        j++;
-    }
-    res[j]='\0';
-
-    return res;
-
-}
 int find_mcr_name(macro *table,char * name, int size)
 {
     int i;

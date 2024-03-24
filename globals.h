@@ -6,7 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
-#include "linked_list.h"
+
 
 
 #define REG_NAME_SIZE 2
@@ -14,7 +14,7 @@
 #define  MAX_ROW 4095
 #define GROUPS 3
 #define MAX_GROUP_SIZE 9
-#define
+
 
 
 #define NONE_EXIST (-1)
