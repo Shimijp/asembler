@@ -69,13 +69,14 @@ bool v_name_exists(sign **ptr, char *name)
     return false; /* name doesn't exist */
 }
 
-void add_first_sign(sign **ptr, char *name,char *identifier, int val)
+bool add_first_sign(sign **ptr, char *name,char *identifier, int val)
 {
     sign *new_sign = (sign *) malloc(sizeof(sign));
 
     if (new_sign == NULL) {
         perror("not enough memory");
-        exit(EXIT_FAILURE);
+        return false;
+        //exit(EXIT_FAILURE);
     }
     else
     {
@@ -85,21 +86,24 @@ void add_first_sign(sign **ptr, char *name,char *identifier, int val)
         new_sign->val = val;
         new_sign->next = *ptr; /* Point to the old first node */
         *ptr = new_sign; /* Update the head to the new node */
+        return true;
     }
 }
 
-void add_last_sign(sign **ptr, char *name, char *identifier, int value)
+bool add_last_sign(sign **ptr, char *name, char *identifier, int value)
 {
     /* check if label or variable with the same name already exists */
     if (v_name_exists(ptr, name))
     {
         fprintf(stderr,"Variable or label name '%s' already defined . Duplicate names are not allowed.\n", name);
-        exit(EXIT_FAILURE);
+        return false;
+        //exit(EXIT_FAILURE);
     }
 
     if ((*ptr) == NULL)
     {
         add_first_sign(ptr, name, identifier, value);
+        return true;
     }
 
     else
@@ -112,7 +116,8 @@ void add_last_sign(sign **ptr, char *name, char *identifier, int value)
         temp->next = (sign *)malloc(sizeof(sign));
         if (!check_malloc(temp->next))
         {
-            exit(EXIT_FAILURE);
+            return false;
+            //exit(EXIT_FAILURE);
         }
         temp = temp->next;
         strncpy(temp->v_name, name, MAX_LABEL_LENGTH -1);
@@ -120,6 +125,7 @@ void add_last_sign(sign **ptr, char *name, char *identifier, int value)
         temp->val = value;
         strcpy(temp->identifier, identifier);
         temp->next = NULL;
+        return true;
     }
 }
 
@@ -131,26 +137,35 @@ sign *get_signs(FILE *nfp)
     char *first_word;
     char *line, v_name[MAX_LABEL_LENGTH];
     char *id;
-    int val;
+    int val, i;
+    bool flag;
 
     init_str(&line, MAX_LINE_SIZE);
+    i = 0;
     while(fgets(line,MAX_LINE_SIZE,nfp) != NULL)
     {
+        i++;
         first_word = get_first_word(line);
         int fw_len = (int)strlen(first_word);
         if (strcmp(first_word, DEFINE) == 0)
         {
-
             line += (strlen(first_word) + 1);
             if (sscanf(line, "%[^\n= ] = %d", v_name, &val) == 2)
             {
                 if (is_sign(v_name))
                 {
                     id = get_property(DEFINE);
-                    add_last_sign(symbols, v_name, id, val);
+                    flag = add_last_sign(symbols, v_name, id, val);
+                    if (!flag)
+                    {
+                        fprintf(stderr, "Variable was not added to symbol table, line %d\n", i);
+                    }
                 }
+                else
+                    fprintf(stderr, "Illegal variable name, line %d\n", i);
             }
-
+            else
+                fprintf(stderr, "error in variable definition, line %d\n", i);
         }
 
         else if (is_label(first_word))
@@ -158,8 +173,17 @@ sign *get_signs(FILE *nfp)
             strncpy(v_name, first_word, fw_len - 1);
             v_name[fw_len - 1] = '\0';
             id = get_property(get_identifier(line));
-            add_last_sign(symbols, v_name, id, 0); /*won't actually be zero, will hold value of the address*/
+            flag = add_last_sign(symbols, v_name, id, 0);
+            /*won't actually be zero, will hold value of the address*/
+            if (!flag)
+            {
+                fprintf(stderr, "Label was not added to symbol table, line %d\n", i);
+            }
         }
+        else if (!is_instruction(first_word) && strcmp(line, "\n") != 0) {
+            fprintf(stderr, "Illegal label name, line %d\n", i);
+        }
+
     }
     free(first_word);
     rewind(nfp);
@@ -268,3 +292,11 @@ sign *select_by_id(sign **table, char *id)
     return selected_head;
 }
 
+bool is_instruction(char *word) {
+    for (int i = 0; i < INSTRUCTIONS_NUM; ++i) {
+        if (strcmp(instructions[i], word) == 0) {
+            return true;
+        }
+    }
+    return false;
+}
