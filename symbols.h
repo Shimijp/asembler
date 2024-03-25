@@ -8,7 +8,7 @@
 
 #define COLON ':'
 #define MAX_LABEL_LENGTH 31 /*or 32 to include '\0'?*/
-#define MAX_IDENTIFIER_LENGTH 9
+#define MAX_IDENTIFIER_LENGTH 11
 #define IDENTIFIERS_NUM 5
 
 #define DATA ".data"
@@ -21,6 +21,8 @@
 #define MDEFINE "mdefine"
 #define MDATA "data"
 #define CODE "code"
+#define EXTERNAL "external"
+#define RELOCATABLE "relocatable"
 
 
 typedef struct sign {
@@ -30,7 +32,7 @@ typedef struct sign {
     struct sign *next; /*pointer to next sign in the nested list*/
 } sign;
 
-static const char *identifiers[] = {
+static char *identifiers[] = {
         DATA,
         DEFINE,
         STRING,
@@ -39,12 +41,22 @@ static const char *identifiers[] = {
         NONE
 };
 
+static char *properties[] = {
+    MDEFINE,
+    MDATA,
+    RELOCATABLE,
+    EXTERNAL,
+    CODE,
+
+};
+
 void add_first_sign(sign **ptr, char *name, char *identifier, int val);
 bool v_name_exists(sign **ptr, char *name);
 void add_last_sign(sign **ptr, char *name, char *identifier, int val);
 sign *get_signs(FILE *nfp); /* adds the constants that are declared with .define or with LABEL: */
 void print_sign_table(sign * table);
-char get_identifier(char *line);
+char* get_identifier(char *line);
+char* get_property(char *id);
 
 bool is_label(char *name);
 
@@ -52,6 +64,5 @@ FILE *rewrite_signs(char *name);
 FILE *open_am_file(char *name);
 
 
-//bool compare_ignore_whitespace(const char *line, const char *identifier);
 
 #endif //ASEMBLER2_SYMBOLS_H

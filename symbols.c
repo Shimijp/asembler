@@ -36,9 +36,9 @@ FILE *open_am_file(char *name)
 
 FILE *rewrite_signs(char *name)
 {
-    FILE *nfp;
-    sign *signs;
-    return 0;
+//    FILE *nfp;
+//    sign *signs;
+//    return 0;
 }
 
 bool v_name_exists(sign **ptr, char *name)
@@ -77,12 +77,13 @@ void add_first_sign(sign **ptr, char *name,char *identifier, int val)
 
 void add_last_sign(sign **ptr, char *name, char *identifier, int value)
 {
+    /* check if label or variable with the same name already exists */
     if (v_name_exists(ptr, name))
     {
-        fprintf(stderr,"Variable name '%s' already defined . Duplicate names are not allowed.\n", name);
+        fprintf(stderr,"Variable or label name '%s' already defined . Duplicate names are not allowed.\n", name);
         exit(EXIT_FAILURE);
     }
-    /* add check if label with the same name already exists */
+
     if ((*ptr) == NULL)
     {
         add_first_sign(ptr, name, identifier, value);
@@ -111,11 +112,12 @@ void add_last_sign(sign **ptr, char *name, char *identifier, int value)
 
 sign *get_signs(FILE *nfp)
 {
-    sign *head_mdefine = NULL;
-    sign **mdefine = &head_mdefine; /* the table that will hold all variables with int values in the file */
+    sign *head_symbols = NULL;
+    sign **symbols = &head_symbols; /* the table that will hold all variables with int values in the file */
 
     char *first_word;
     char *line, v_name[MAX_LABEL_LENGTH];
+    char *id;
     int val;
 
     init_str(&line, MAX_LINE_SIZE);
@@ -127,36 +129,36 @@ sign *get_signs(FILE *nfp)
         {
 
             line += (strlen(first_word) + 1);
-            //first_word = get_first_word(line);
             if (sscanf(line, "%[^\n= ] = %d", v_name, &val) == 2)
             {
-                printf("%s - %d\n", v_name, val);
-                add_last_sign(mdefine, v_name, MDEFINE, val);
+                id = get_property(DEFINE);
+                add_last_sign(symbols, v_name, id, val);
             }
 
         }
-//        else if (fw_len > 1 && first_word[fw_len - 1] == ':' && first_word[fw_len - 2] != ' ')
+
         else if (is_label(first_word))
         {
             strncpy(v_name, first_word, fw_len - 1);
             v_name[fw_len - 1] = '\0';
-            printf("%s\n", v_name);
-            add_last_sign(mdefine, v_name, "\0", 0); /*won't actually be zero, will hold value of the address*/
+            id = get_property(get_identifier(line));
+            add_last_sign(symbols, v_name, id, 0); /*won't actually be zero, will hold value of the address*/
         }
     }
     free(first_word);
     rewind(nfp);
-    return head_mdefine;
+    print_sign_table(head_symbols);
+    return head_symbols;
 }
 
-void print_sign_table(sign * table)
+void print_sign_table(sign *table)
 {
-    sign * temp;
-    temp=table;
+    sign *temp;
+    temp = table;
     while(temp!= NULL)
     {
-        printf("name: %s val: %d\n",temp->v_name,temp->val);
-        temp=temp->next;
+        printf("name: %s, id: %s, val: %d\n",temp->v_name,temp -> identifier, temp->val);
+        temp = temp->next;
     }
     free(temp);
 }
@@ -184,29 +186,30 @@ bool is_label(char *name) {
     return false;
 }
 
-char get_identifier(char *line)
+char* get_identifier(char *line)
 {
     for (int i = 0; i < IDENTIFIERS_NUM; i++)
     {
         if(strcmp(get_first_word(line), identifiers[i]) == 0)
-            return *identifiers[i];
+            return identifiers[i];
         else if (is_label(get_first_word(line))) {
             if(strcmp(get_next_word(line), identifiers[i]) == 0)
-                return *identifiers[i];
+                return identifiers[i];
         }
     }
-    return *identifiers[IDENTIFIERS_NUM];
+    return identifiers[IDENTIFIERS_NUM];
 }
 
+char* get_property(char *id)
+{
+    if (strcmp(id, DEFINE) == 0)
+        return MDEFINE;
+    else if (strcmp(id, STRING) == 0 || strcmp(id, DATA) == 0)
+        return MDATA;
+    else if (strcmp(id, ENTRY) == 0)
+        return RELOCATABLE;
+    else if (strcmp(id, EXTERN) == 0)
+        return EXTERNAL;
+    return CODE;
+}
 
-//bool compare_ignore_whitespace(const char *line, const char *identifier) {
-//    while(*line && *identifier) {
-//        while(isspace((unsigned char)*line)) line++;
-//        if(*line != *identifier) {
-//            return false; /* does not match */
-//        }
-//        line++;
-//        identifier++;
-//    }
-//    return *identifier == '\0' && !isalpha((unsigned char)*line) ? true : false;
-//}
