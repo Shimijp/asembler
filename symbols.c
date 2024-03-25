@@ -36,9 +36,22 @@ FILE *open_am_file(char *name)
 
 FILE *rewrite_signs(char *name)
 {
-//    FILE *nfp;
-//    sign *signs;
-//    return 0;
+    FILE *nfp, *tmp_fp ;
+    sign *table, *define_table;
+    char *new_name;
+    int new_len;
+
+    /* create a .tmp file */
+    new_len = (int)(strlen(name) + strlen(".tmp"));
+    init_str(&new_name,new_len);
+    strcpy(new_name,name);
+    strcat(new_name,".tmp");
+    nfp = open_am_file(name);
+
+    table = get_signs(nfp);
+    define_table = select_by_id(&table, MDEFINE);
+
+
 }
 
 bool v_name_exists(sign **ptr, char *name)
@@ -131,8 +144,11 @@ sign *get_signs(FILE *nfp)
             line += (strlen(first_word) + 1);
             if (sscanf(line, "%[^\n= ] = %d", v_name, &val) == 2)
             {
-                id = get_property(DEFINE);
-                add_last_sign(symbols, v_name, id, val);
+                if (is_sign(v_name))
+                {
+                    id = get_property(DEFINE);
+                    add_last_sign(symbols, v_name, id, val);
+                }
             }
 
         }
@@ -186,6 +202,28 @@ bool is_label(char *name) {
     return false;
 }
 
+bool is_sign(char *name)
+{
+    int len = (int)strlen(name);
+    if (len > 1 && len <= MAX_LABEL_LENGTH)
+    {
+        if(isalpha(name[0]))
+        {
+            for(int i = 1; i <= len-2; i++)
+            {
+                if (!(isalpha(name[i]) || isdigit(name[i])))
+                {
+                    fprintf(stderr, "not a legal variable name\n");
+                    return false;
+                }
+            }
+            return true;
+        }
+
+    }
+    return false;
+}
+
 char* get_identifier(char *line)
 {
     for (int i = 0; i < IDENTIFIERS_NUM; i++)
@@ -211,5 +249,22 @@ char* get_property(char *id)
     else if (strcmp(id, EXTERN) == 0)
         return EXTERNAL;
     return CODE;
+}
+
+sign *select_by_id(sign **table, char *id)
+{
+    sign *selected_head = NULL;
+    sign **selected_table = &selected_head;
+
+    sign *current = *table;
+    while (current != NULL)
+    {
+        if (strcmp(current->identifier, id) == 0)
+        {
+            add_last_sign(selected_table, current->v_name, current->identifier, current->val);
+        }
+        current = current->next;
+    }
+    return selected_head;
 }
 

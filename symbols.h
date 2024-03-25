@@ -59,9 +59,12 @@ char* get_identifier(char *line);
 char* get_property(char *id);
 
 bool is_label(char *name);
+bool is_sign(char *name);
 
 FILE *rewrite_signs(char *name);
 FILE *open_am_file(char *name);
+
+sign *select_by_id(sign **ptr, char *id);
 
 
 
