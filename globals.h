@@ -59,10 +59,13 @@ static const char* instructions[] = {
         "rts",
         "hlt"
 };
-static const optcode opcode_matrix[3][MAX_GROUP_SIZE] = {
+static const optcode opcode_matrix[GROUPS][MAX_GROUP_SIZE] = {
         {mov, cmp, add, sub, lea, INVALID, INVALID, INVALID, INVALID}, // First group
         {not, clr, inc, dec, jmp, bne, red, prn, jsr}, // Second group
         {rts, hlt, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID, INVALID} // Third group
+};
+static const char * reg[]={
+        "r0","r1","r2","r3","r4","r5","r6","r7"
 };
 
 typedef enum

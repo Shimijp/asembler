@@ -19,13 +19,13 @@ typedef struct
 
 }word;
 ARE get_are(char * line);
-address get_s_address(char * line);
-address get_d_address(char * line);
-registers get_s_reg(char * line);
+address get_s_address(char * command);
+address get_d_address(char * command);
+registers get_s_reg(char * command);
 int get_amount_of_op(char * command);
-bool is_data(char * command);
 
-
+bool is_symbole(char * command);
+optcode get_optcode(char * command);
 
 
 
