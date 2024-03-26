@@ -138,7 +138,7 @@ sign *get_signs(FILE *nfp)
     char *line, v_name[MAX_LABEL_LENGTH];
     char *id;
     int val, i;
-    bool flag;
+    bool flag = true;
 
     init_str(&line, MAX_LINE_SIZE);
     i = 0;
@@ -155,17 +155,22 @@ sign *get_signs(FILE *nfp)
                 if (is_sign(v_name))
                 {
                     id = get_property(DEFINE);
-                    flag = add_last_sign(symbols, v_name, id, val);
-                    if (!flag)
+
+                    if (!add_last_sign(symbols, v_name, id, val))
                     {
-                        fprintf(stderr, "Variable was not added to symbol table, line %d\n", i);
+                        flag = false;
+                        //fprintf(stderr, "Variable was not added to symbol table, line %d\n", i);
                     }
                 }
                 else
-                    fprintf(stderr, "Illegal variable name, line %d\n", i);
+                    flag = false;
+                    //fprintf(stderr, "Illegal variable name, line %d\n", i);
             }
-            else
+            else {
+                flag = false;
                 fprintf(stderr, "error in variable definition, line %d\n", i);
+            }
+
         }
 
         else if (is_label(first_word))
@@ -173,15 +178,17 @@ sign *get_signs(FILE *nfp)
             strncpy(v_name, first_word, fw_len - 1);
             v_name[fw_len - 1] = '\0';
             id = get_property(get_identifier(line));
-            flag = add_last_sign(symbols, v_name, id, 0);
+
             /*won't actually be zero, will hold value of the address*/
-            if (!flag)
+            if (!add_last_sign(symbols, v_name, id, 0))
             {
+                flag = false;
                 fprintf(stderr, "Label was not added to symbol table, line %d\n", i);
             }
         }
         else if (!is_instruction(first_word) && strcmp(line, "\n") != 0)
         {
+            flag = false;
             fprintf(stderr, "Illegal label name, line %d\n", i);
         }
 
@@ -189,6 +196,8 @@ sign *get_signs(FILE *nfp)
     free(first_word);
     rewind(nfp);
     print_sign_table(head_symbols);
+    if (!flag)
+        exit(EXIT_FAILURE);
     return head_symbols;
 }
 
