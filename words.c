@@ -74,3 +74,8 @@ char ** get_words_in_array(char * line)
     free(list);
     return arr;
 }
+bool is_empty_line(const char * line)
+{
+
+    return line[0]=='\n';
+}
