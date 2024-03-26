@@ -48,7 +48,6 @@ static char *properties[] = {
     RELOCATABLE,
     EXTERNAL,
     CODE,
-
 };
 
 bool add_first_sign(sign **ptr, char *name, char *identifier, int val);
@@ -57,16 +56,17 @@ bool add_last_sign(sign **ptr, char *name, char *identifier, int val);
 sign *get_signs(FILE *nfp); /* adds the constants that are declared with .define or with LABEL: */
 void print_sign_table(sign * table);
 char* get_identifier(char *line);
-char* get_property(char *id);
+char* get_property(char *id); /* determines if mdefine/relocatable/external/code */
 
-bool is_label(char *name);
-bool is_sign(char *name);
-bool is_instruction(char *word);
+bool is_label(char *name); /* checks if the label name is legal */
+bool is_sign(char *name); /* checks if the variable name is legal */
+bool is_instruction(char *word); /* checks if a string is an opcode instruction */
 
 FILE *rewrite_signs(char *name);
 FILE *open_am_file(char *name);
 
 sign *select_by_id(sign **ptr, char *id);
+sign *select_by_name(sign **table, char *id);
 
 
 

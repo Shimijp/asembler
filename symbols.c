@@ -180,7 +180,8 @@ sign *get_signs(FILE *nfp)
                 fprintf(stderr, "Label was not added to symbol table, line %d\n", i);
             }
         }
-        else if (!is_instruction(first_word) && strcmp(line, "\n") != 0) {
+        else if (!is_instruction(first_word) && strcmp(line, "\n") != 0)
+        {
             fprintf(stderr, "Illegal label name, line %d\n", i);
         }
 
@@ -299,4 +300,21 @@ bool is_instruction(char *word) {
         }
     }
     return false;
+}
+
+sign *select_by_name(sign **table, char *id)
+{
+    sign *selected_head = NULL;
+    sign **selected_table = &selected_head;
+
+    sign *current = *table;
+    while (current != NULL)
+    {
+        if (strcmp(current->v_name, id) == 0)
+        {
+            add_last_sign(selected_table, current->v_name, current->identifier, current->val);
+        }
+        current = current->next;
+    }
+    return selected_head;
 }
