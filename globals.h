@@ -82,7 +82,7 @@ typedef enum bool
 }bool;
 typedef enum
 {
-    r0,r1,r2,r3,r4,r5,r6,r7
+    r0,r1,r2,r3,r4,r5,r6,r7,NON_REG=-1,
 
 }registers;
 
@@ -96,11 +96,21 @@ typedef enum
     direct_reg
 
 }address;
+typedef struct {
+    optcode code;
+    address legal_s_addresses[4]; // Up to four legal source addresses
+    address legal_d_addresses[4]; // Up to four legal destination addresses
+} command_addressing;
 typedef struct
 {
-     optcode d_optcode;
-     char cmd_name[CMD_SIZE];
-}command;
+
+    int L;
+    char * binary;
+    char * instruc;
+    int IC;
+
+}word;
+
 
 
 

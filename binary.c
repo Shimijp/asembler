@@ -79,3 +79,24 @@ void reverse(char * bin)
 {
     (*bin)==ZERO_CHAR?((*bin)=ONE_CHAR):((*bin)=ZERO_CHAR);
 }
+int bin_to_dec(char *bin)
+{
+    int i,res,sign,len,pow;
+    len= strlen(bin);
+    res=0;
+    pow=1;
+    if(bin[0]=='1')
+    {
+        sign=-1;
+    }
+    else
+    {
+        sign=1;
+    }
+    for(i=len-1;i>=1;i--)
+    {
+        res+=((bin[i]-'0')*pow);
+        pow*=2;
+    }
+    return res*sign;
+}

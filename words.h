@@ -11,5 +11,7 @@ char * get_first_word(char * line);
 char * get_next_word(char * line);
 node * get_words(char * line);
 char ** get_words_in_array(char * line);
+int count_words(char * line);
 bool is_empty_line(const char * line);
+char * clear_word(char * command);
 #endif //ASEMBLER2_WORDS_H
