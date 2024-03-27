@@ -38,8 +38,9 @@ FILE *rewrite_signs(char *name)
 {
     FILE *nfp, *tmp_fp ;
     sign *table, *define_table;
-    char *new_name;
-    int new_len;
+    char *new_name, *line;
+    int new_len, table_len, num_of_words;
+    node *words;
 
     /* create a .tmp file */
     new_len = (int)(strlen(name) + strlen(".tmp"));
@@ -48,9 +49,32 @@ FILE *rewrite_signs(char *name)
     strcat(new_name,".tmp");
     nfp = open_am_file(name);
 
+    init_str(&line,MAX_LINE_SIZE);
+
     table = get_signs(nfp);
     define_table = select_by_id(&table, MDEFINE);
+    table_len = get_length_signs(&define_table);
 
+    tmp_fp = fopen(new_name,"w+");
+    line = fgets(line ,MAX_LINE_SIZE, nfp);
+    while(line != NULL)
+    {
+        words = get_words(line);
+        num_of_words = get_length(&words);
+        int i, j;
+        for (i = 0; i < num_of_words; i++)
+        {
+            for(j = 0; j < table_len; j++)
+            {
+
+            }
+
+    }
+
+    }
+
+    /* FINISH !!!! */
+return 0;
 
 }
 
@@ -326,4 +350,19 @@ sign *select_by_name(sign **table, char *id)
         current = current->next;
     }
     return selected_head;
+}
+
+int get_length_signs(sign **ptr )
+{
+    sign *temp;
+    int count;
+
+    temp = (*ptr);
+    count = 0;
+    while(temp != NULL)
+    {
+        ++count;
+        temp = temp->next;
+    }
+    return count;
 }

@@ -68,6 +68,6 @@ FILE *open_am_file(char *name);
 sign *select_by_id(sign **ptr, char *id);
 sign *select_by_name(sign **table, char *id);
 
-
+int get_length_signs(sign **ptr);
 
 #endif //ASEMBLER2_SYMBOLS_H
