@@ -99,10 +99,11 @@ char * clear_word(char * command)
     char * res;
     int len;
     len= strlen(command);
-    init_str(&res,len-1);
+    init_str(&res,len);
     if(command[len-1]==':' || command[len-1]==',')
     {
         strncpy(res,command,len-1);
+        res[len]='\0';
         return res;
     }
     else

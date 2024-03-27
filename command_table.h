@@ -23,7 +23,7 @@ char * convert_to_bin(char * command, sign ** table);
 
 bool is_symbole(char * command);
 optcode get_optcode(char * command);
-
+sign * find_in_table(sign ** table, char * name );
 
 
 #endif //ASEMBLER2_COMMAND_TABLE_H

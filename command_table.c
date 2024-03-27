@@ -3,7 +3,21 @@
 #include "command_table.h"
 #include "globals.h"
 #include "symbols.h"
+sign * find_in_table(sign ** table, char * name )
+{
+    sign * sign_table1=(*table);
+    while (sign_table1 != NULL)
+    {
 
+
+        if(!strcmp(sign_table1->v_name, name))
+        {
+            return sign_table1;
+        }
+        sign_table1 = sign_table1->next;
+    }
+    return NULL;
+}
 bool is_symbole(char * command)
 {
     return is_sign(command) || is_label(command);
@@ -72,10 +86,12 @@ ARE get_are(char * command, sign ** table) {
     optcode code;
     registers regist;
     sign * res;
+    char *temp_command;
 
-    code = get_optcode(command);
-    regist= get_s_reg(command);
-    res= select_by_name(table,command);
+    temp_command= clear_word(command);
+    code = get_optcode(temp_command);
+    regist= get_s_reg(temp_command);
+    res= find_in_table(table,temp_command);
     if (code != NONE_EXIST || regist!= NON_REG || command[0]=='#') {/*if it's a code or a register or imitate address*/
         return A;
     }
@@ -89,7 +105,7 @@ ARE get_are(char * command, sign ** table) {
         {
             return E;
         }
-        if((!strcmp(res->identifier,MDEFINE) )|| (!strcmp(res->identifier,DATA))  )/*if it's a constant */
+        if((!strcmp(res->identifier,MDEFINE) )|| (!strcmp(res->identifier,DATA))  || (!strcmp(res->identifier,CODE)))/*if it's a constant */
         {
             return A;
         }
@@ -97,6 +113,14 @@ ARE get_are(char * command, sign ** table) {
         {
             return R;
         }
+    }
+    if(temp_command!=NULL)
+    {
+        free(temp_command);
+    }
+    if(res!=NULL)
+    {
+        free(res);
     }
     return -1;
 
