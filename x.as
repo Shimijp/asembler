@@ -17,6 +17,6 @@ L1: inc K
 	bne LOOP
 END: hlt
 .define len = 4
-STR: .string 
+STR: .string "abcdef"
 LIST: .data 6, -9, len
 K: .data 22

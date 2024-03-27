@@ -118,12 +118,21 @@ ARE get_are(char * command, sign ** table) {
     {
         free(temp_command);
     }
-    if(res!=NULL)
-    {
-        free(res);
-    }
+
+    free(res);
+
     return -1;
 
 }
+node * data_to_bin(char * data)
+{
+    int i,ascii;
+    char * bin,token;
+    node * res;
+    res=NULL;
+
+
+}
+
 
 
