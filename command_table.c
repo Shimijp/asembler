@@ -3,6 +3,7 @@
 #include "command_table.h"
 #include "globals.h"
 #include "symbols.h"
+#include "binary.h"
 sign * find_in_table(sign ** table, char * name )
 {
     sign * sign_table1=(*table);
@@ -124,12 +125,21 @@ ARE get_are(char * command, sign ** table) {
     return -1;
 
 }
-node * data_to_bin(char * data)
+node * str_to_bin(char * data)
 {
     int i,ascii;
     char * bin,token;
     node * res;
     res=NULL;
+    for(i=0;data[i]!='"'&& data[i];i++)
+    {
+        bin= dec_to_bin(data[i],WORD_SIZE);
+        add_last(&res,bin);
+    }
+    bin= dec_to_bin(0,WORD_SIZE);
+    add_last(&res,bin);
+    free(bin);
+    return res;
 
 
 }

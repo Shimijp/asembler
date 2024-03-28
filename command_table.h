@@ -25,7 +25,7 @@ registers get_s_reg(char * command);
 int get_amount_of_op(char * command);
 
 char * convert_to_bin(char * command, sign ** table);
-node * data_to_bin(char * data);
+node * str_to_bin(char * data);
 bool is_symbol(char * command);
 optcode get_optcode(char * command);
 sign * find_in_table(sign ** table, char * name );
