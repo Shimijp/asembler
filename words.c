@@ -19,10 +19,14 @@ int count_words(char * line)
         {
             count++;
 
-            while(isspace(line[i]) || line[i]==',')
+            while(isspace(line[i]) && line[i]!=',')
             {
                 i++;
             }
+        }
+        else if(line[i]==',')
+        {
+            count++;
         }
 
     }
